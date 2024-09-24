@@ -20,5 +20,7 @@ public interface InterFaceUserDao {
 	
 	void ChangePassword(String username, String newpassword);
 	
+	public void UpdateProfile(String username, String fullname, String email, String phone);
+	
 	
 }

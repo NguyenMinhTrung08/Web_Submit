@@ -36,7 +36,6 @@
 					<li><a href="shop-account.html">My Account</a></li>
 					<li><a href="shop-wishlist.html">My Wishlist</a></li>
 					<li><a href="shop-checkout.html">Checkout</a></li>
-					<li><a href="${pageContext.request.contextPath }/upload">Upload</a></li>
 					<li>
 					<c:choose>
 							<c:when test="${sessionScope.account == null}">
@@ -45,7 +44,7 @@
 								
 							</c:when>
 							<c:otherwise>
-								<a href="${pageContext.request.contextPath}/member/myaccount">${sessionScope.account.fullname}</a>
+								<a href="${pageContext.request.contextPath}/update">${sessionScope.account.fullname}</a>
 											| <a href="${pageContext.request.contextPath }/logout">Logout</a>
 							</c:otherwise>
 						</c:choose>

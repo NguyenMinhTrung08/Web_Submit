@@ -17,4 +17,6 @@ public interface InterFaceUserService {
 	UserModel FindByUserName(String username);
 	
 	UserModel ChangePassword(String username, String newpassword); 
+	
+	UserModel UpdateProfile(String username, String fullname, String email, String phone); 
 }

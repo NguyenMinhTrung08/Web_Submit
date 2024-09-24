@@ -69,4 +69,19 @@ public class UserServiceImpl implements InterFaceUserService {
         }
 	}
 
+	@Override
+	public UserModel UpdateProfile(String username, String fullname, String email, String phone) {
+		// Kiểm tra xem username có tồn tại không
+        UserModel user = userDao.findByUsername(username);
+
+        if (user != null) {
+            // Username tồn tại, thay đổi mật khẩu
+        	userDao.UpdateProfile(username, fullname, email, phone);
+            return userDao.findByUsername(username); // Trả về thông tin người dùng sau khi thay đổi mật khẩu
+        } else {
+            // Username không tồn tại, trả về null
+            return null;
+        }
+	}
+
 }

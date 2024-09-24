@@ -182,6 +182,29 @@ public class UserDaoImpl extends DBConnectMySQL implements InterFaceUserDao {
 		}
 
 	}
+	
+	
+	@Override
+	public void UpdateProfile(String username,String fullname, String email, String phone) {
+	    String sql = "UPDATE user SET fullname = ?, email = ?, phone = ? WHERE username = ?";
+
+	    try {
+	        conn = super.getDatabaseConnection();
+	        ps = conn.prepareStatement(sql);
+
+	        
+	        ps.setString(1, fullname);
+	        ps.setString(2, email);
+	        ps.setString(3, phone);
+	        ps.setString(4, username);
+
+	        ps.executeUpdate();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
 
 	public static void main(String[] args) {
 
@@ -250,7 +273,25 @@ public class UserDaoImpl extends DBConnectMySQL implements InterFaceUserDao {
 		 * userDao.findByUsername(username);
 		 * System.out.println("Information User After Password Change: " + user);
 		 */
+		
+		// ------------------ FUNCTION: UPDATE PROFILE ---------------------------
+		
+		/*
+		 * UserDaoImpl userDao = new UserDaoImpl(); String username = "ThanhHai" ;
+		 * String fullname = "PhamThanhHai"; String email ="hai@gmail.com"; String phone
+		 * = "5649";
+		 * 
+		 * // Cập nhật mật khẩu userDao.UpdateProfile(username, fullname, email, phone);
+		 * 
+		 * // Kiểm tra việc thay đổi mật khẩu UserModel user =
+		 * userDao.findByUsername(username);
+		 * System.out.println("Information User After Password Change: " + user);
+		 */
+		 	
+		
 
 	}
+
+
 
 }

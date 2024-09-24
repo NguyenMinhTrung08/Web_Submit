@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import Automation.Web.models.UserModel;
+import Automation.Web.services.InterFaceUserService;
+import Automation.Web.services.impl.UserServiceImpl;
 import Automation.Web.utils.ConstantUpload;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -22,10 +25,9 @@ import static Automation.Web.utils.ConstantUpload.DEFAULT_FILENAME;
 public class UploadController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	InterFaceUserService service = new UserServiceImpl();
 
 
-	public static final String SAVE_DIRECTORY = "Upload";
-	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("views/upload.jsp").forward(req, resp);
@@ -35,24 +37,19 @@ public class UploadController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String uploadPath = File.separator + UPLOAD_DIRECTORY; // upload vào thư mục bất kỳ
-		// String uploadPath = getServletContext().getRealPath("") + File.separator +
-		// UPLOAD_DIRECTORY; //upload vào thư mục project
-		File uploadDir = new File(uploadPath);
-		if (!uploadDir.exists())
-			uploadDir.mkdir();
-		try {
-			String fileName = "";
-			for (Part part : req.getParts()) {
-				fileName = getFileName(part);
-				part.write(uploadPath + File.separator + fileName);
-			}
-
-			req.setAttribute("message", "File " + fileName + " has uploaded successfully!");
-		} catch (FileNotFoundException fne) {
-			req.setAttribute("message", "There was an error: " + fne.getMessage());
-		}
-		getServletContext().getRequestDispatcher("/views/result.jsp").forward(req, resp);
+		 
+			  String uploadPath = File.separator + UPLOAD_DIRECTORY;
+			  File uploadDir = new File(uploadPath); if (!uploadDir.exists()) uploadDir.mkdir();
+			  try { String fileName = ""; for (Part part : req.getParts()) { fileName =
+			  getFileName(part); part.write(uploadPath + File.separator + fileName); }
+			  
+			  req.setAttribute("message", "File " + fileName + " has uploaded successfully!"); } 
+			  catch (FileNotFoundException fne) {
+			  req.setAttribute("message", "There was an error: " + fne.getMessage()); }
+			  getServletContext().getRequestDispatcher("/views/result.jsp").forward(req,
+			  resp);
+			
+		
 	}
 
 	private String getFileName(Part part) {
@@ -62,5 +59,5 @@ public class UploadController extends HttpServlet {
 		}
 		return ConstantUpload.DEFAULT_FILENAME;
 	}
-		
+
 }
